@@ -1,0 +1,16 @@
+#header {background-color: steelblue;}
+#main_container { display: flex;}
+#filtres {background-color: lightblue; padding: 10px; display: flex; justify-content: space-around;}
+#body_page { flex: 1; align-items: center;}
+#first_row { display: flex; }
+#filtres_régions { display:flex;align-content: center; align-items: center; justify-content: center;text-align: center;}
+#filtres_travail { display: flex; align-content: center; align-items: center; justify-content: center;}
+#filtres_emplois_moyens { display: flex; align-content: center; align-items: center; justify-content: center;}
+#average_E { border: solid; border-color: lightskyblue; padding: 35px; border-radius: 50px/50px; background-color: lightskyblue;}
+#average_ETP { border: solid; border-color: brown; padding: 35px; border-radius: 50px/50px; background-color: brown;}
+#chiffres_régions {align-content: center; align-items: center; justify-content: center; text-align: center;}
+#deficit { display: flex; align-content: center; align-items: center; justify-content: center; text-align: center;}
+
+
+
+
