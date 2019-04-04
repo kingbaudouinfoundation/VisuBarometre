@@ -203,7 +203,8 @@ app.layout = html.Div([
 									{'x': [2013, 2014, 2015, 2016, 2017], 'y': [232101, 230304, 232508, 236418, 240345], 'type': 'bar', 'name':'ETP'},
 								],
 								'layout': {
-									'title': 'Evolution des emplois et des ETP',								}
+									'title': 'Evolution des emplois et des ETP',								
+									}
 							}
 						)
 				], id = 'filtres_travail'),
