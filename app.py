@@ -9,6 +9,7 @@ import dash_html_components as html
 import plotly.plotly as py 
 import plotly.graph_objs as go
 
+#données pour le calcul des emplois et ETP moyens
 average_E = [31.0, 30.8, 31.1, 30.7, 30.8]
 m = 0
 for x in average_E:
@@ -29,6 +30,8 @@ app.layout = html.Div([
 		
 	
 	html.Div([
+
+		#Section header de la page : titre + filtres
 		html.Div([
 			
 				html.Div('Résultats du baromètre de associations et des fondations',style = {'color':'whitesmoke', 'fontSize': 30, 'textAlign':'center', 'padding':'20px'}),
@@ -38,10 +41,11 @@ app.layout = html.Div([
 			
 			html.Div([
 
-				
+				#Filtres des régions
 				html.Div([
 					html.P('Régions:', style = {'color':'goldenrod'}),
 					dcc.Dropdown(
+					#id pour utiliser les filtres dans les appels des fonctions callback
 					id = 'régions',
 					style = {'width':'350px', 'backgroundColor':'floralwhite'},
 					options=[
@@ -50,11 +54,12 @@ app.layout = html.Div([
 						{'label': 'Bruxelles', 'value': 'Bruxelles'}
 						
 					],
-					#value=' ',
+					
 					multi = 'True'
 					)
 				]),
 				
+				#Flitres des secteurs 
 				html.Div([
 					html.P('Secteur:', style = {'color':'goldenrod'}),
 					dcc.Dropdown(
@@ -67,13 +72,15 @@ app.layout = html.Div([
 						{'label': 'Environnement', 'value': 'Environnement'},
 						{'label': 'Coopération', 'value':'Coopération'}
 					],
-					#value=' ',
+					
 					multi = 'True'
 					)
 				]),
 
+				#Filtres des tailles
 				html.Div([
-
+					
+					
 					html.P('Taille', style = {'color':'goldenrod'}),
 					dcc.Dropdown(
 						id = 'taille',
@@ -93,8 +100,6 @@ app.layout = html.Div([
 
 		], id = "header"),
 
-
-	
 
 		html.Div('Répartition des associations et des fondations selon plusieurs critères:', style = {'color':'SteelBlue', 'fontSize':20, 'textAlign':'center', 'paddingTop': 50}),
 
@@ -148,6 +153,7 @@ app.layout = html.Div([
 			
 				html.Div([
 					
+					#Graph du nombre total d'employeurs
 					dcc.Graph(
 							id = 'graph_employeurs',
 							style = {'height': 400, 'width': 400},
@@ -163,7 +169,7 @@ app.layout = html.Div([
 							}
 						),
 				
-					
+					#Tri par région
 					dcc.Graph(
 							id = 'graph_employeurs_régions',
 							style = {'height': 400, 'width': 600},
@@ -186,7 +192,8 @@ app.layout = html.Div([
 		html.Div([
 
 					html.Div(),
-				
+
+					#Graph de l'évolution des emplois et ETP
 					dcc.Graph(
 							id = 'graph_travail',
 							style = {'height': 400, 'width': 600},
@@ -206,6 +213,7 @@ app.layout = html.Div([
 
 					html.Div(),
 
+					#Nombre d'emplois moyens 
 					dcc.Graph(
 							id = 'graph_emplois_moyens',
 							style = {'height': 400, 'width': 600},
@@ -236,6 +244,7 @@ app.layout = html.Div([
 
 			html.Div(),
 
+			#Graph de la part des associations déficitaires et non déficitaires selon les régions
 			dcc.Graph(
 			id = 'deficit_regions',
 			style = {'height':500, 'width':900},
@@ -255,11 +264,6 @@ app.layout = html.Div([
 		], id = "deficit")
 		
 
-
-		
-		
-			
-
 	], id = 'body_page'),
 
 	
@@ -271,6 +275,10 @@ app.layout = html.Div([
 @app.callback(
 dash.dependencies.Output('graph_régions', 'figure'),
 [dash.dependencies.Input('régions', 'value')])
+#
+#
+# @selector : valeur du filtre 
+# @figure : le graphique à afficher 
 def update_image_src(selector):		
 	data = []
 	if 'Flandre' in selector:
@@ -279,7 +287,6 @@ def update_image_src(selector):
 		data.append({'x': [2013, 2017], 'y': [33.3, 33.2], 'type': 'bar', 'name':'Wallonie'})
 	if 'Bruxelles' in selector:
 		data.append({'x': [2013, 2017], 'y': [22.1, 22.0], 'type': 'bar', 'name':'Bruxelles'})
-	
 	figure = {
 		'data': data,	
 		'layout': {
@@ -294,12 +301,16 @@ def update_image_src(selector):
 		}
 	return figure
 	
-
+### Fonctions callback pour actualiser les graph ###
 
 #Fonction callback pour le graph selon le statut d'employeurs
 @app.callback(
 dash.dependencies.Output('graph_employeurs_régions', 'figure'),
 [dash.dependencies.Input('régions', 'value')])
+#
+#
+# @selector : valeur du filtre 
+# @figure : le graphique à afficher 
 def update_image_src(selector):		
 	data = []
 	if 'Flandre' in selector:
@@ -329,6 +340,10 @@ def update_image_src(selector):
 @app.callback(
 dash.dependencies.Output('deficit_regions', 'figure'),
 [dash.dependencies.Input('régions', 'value')])
+#
+#
+# @selector : valeur du filtre 
+# @figure : le graphique à afficher 
 def update_image_src(selector):		
 
 	data = []
@@ -359,10 +374,6 @@ def update_image_src(selector):
 	return figure
 	
 			
-	
-
-
-
 
 #Démarrage du serveur 
 if(__name__ == '__main__'):
